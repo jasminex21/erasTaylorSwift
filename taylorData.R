@@ -1,8 +1,8 @@
 library(spotifyr)
 
 # Setting up Spotify client ID and client secret
-Sys.setenv(SPOTIFY_CLIENT_ID = '7617fa725f9d4c48907e275d51a60128')
-Sys.setenv(SPOTIFY_CLIENT_SECRET = '924c8dd947d34050ac4fd0bdb4b93c2d')
+Sys.setenv(SPOTIFY_CLIENT_ID = 'your ID')
+Sys.setenv(SPOTIFY_CLIENT_SECRET = 'your secret')
 access_token <- get_spotify_access_token()
 
 # Creating a tibble/df containing Taylor's Spotify data
