@@ -1,3 +1,3 @@
 # eRasTaylorSwift
 
-Working on it
+Working on it. having a lot of fun
