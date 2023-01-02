@@ -1,0 +1,40 @@
+/* Eras: Taylor Swift CSS */
+
+* {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", 
+  Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+#featureDescription, #featureCommentary { 
+  font-size: 16px !important;
+}
+
+#randGenerated {
+  font-size: 18px !important;
+}
+
+.control-label {
+  font-size: 15px;
+}
+
+.well {
+  background: #D3D7DC;
+  border: 0px solid #e3e3e3;
+  border-radius: 13px;
+}
+
+.container-fluid {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+img {
+  border: 5px;
+  border-radius: 13px !important;
+  border-style: solid !important;
+  border-color: #d3d7dc !important;
+}
+
+.carousel-caption {
+  border-radius: 13px !important;
+}
