@@ -125,19 +125,17 @@ server = function(input, output) {
   })
   
   output$wordCloud = renderWordcloud2({
-    wordcloud2(data = createWordCount()[1:450,] %>%
-                 # Taking sqrt of frequency so that word clouds are more consistent
-                 mutate(freqSqrt = sqrt(freq)) %>% 
-                 select(word, freqSqrt), 
-               fontFamily = "Helvetica",
-               fontWeight = "bold",
-               shape = 'circle', 
-               ellipticity = 0.70, 
-               color = rep_len(cloudPalette()[2:length(cloudPalette())], 
-                               length.out = nrow(createWordCount())), 
-               backgroundColor = cloudPalette()[1], 
-               size = 0.5)
-  })
+      wordcloud2(data = createWordCount(),
+                 fontFamily = "Helvetica",
+                 fontWeight = "bold",
+                 shape = 'circle', 
+                 ellipticity = 0.70, 
+                 color = rep_len(cloudPalette()[2:length(cloudPalette())], 
+                                 length.out = nrow(createWordCount())), 
+                 backgroundColor = cloudPalette()[1], 
+                 size = 0.65,
+                 minSize = 2)
+    })
   
   ## Panel 4 ##
   buttonPressed = eventReactive(input$button, {
