@@ -93,7 +93,8 @@ ui = navbarPage(title = strong("Eras: Taylor Swift"), inverse = T,
                                      mainPanel(
                                        br(),
                                        wellPanel(wordcloud2Output("wordCloud", 
-                                                                  height = "550px")))
+                                                                  height = "560px", 
+                                                                  width = "280px")))
                                    ))),
                 # Fifth Panel - Lexical Diversity
                 tabPanel(title = strong("Lexical Diversity"), 
