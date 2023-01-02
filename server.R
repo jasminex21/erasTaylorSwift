@@ -7,7 +7,7 @@ server = function(input, output) {
     filter(annotations, feature %in% input$audioFeature)
   })
   
-  # Panel 2
+  ## Panel 2 ##
   output$featureDescription = renderText({
     toString(annotationSubsets()[1,2])
   })
@@ -52,7 +52,7 @@ server = function(input, output) {
     toString(annotationSubsets()[1,3])
   })
   
-  # Panel 3
+  ## Panel 3 ##
   createWordCount = reactive({
     req(input$cloudAlbum)
     albumLyrics = allLyrics %>%
@@ -87,6 +87,7 @@ server = function(input, output) {
                   caption = 'Note that stopwords such as i, me, my, am, etc. have been excluded. Hover over the wordcloud for specific word counts, or view the table below.')
   })
   
+  # I could have put the palettes in order into a dataframe, which would have made this less repetitive
   cloudPalette = reactive({
     if (input$cloudAlbum == "Taylor Swift") {
       palette = palettes$taylorSwift
@@ -124,7 +125,10 @@ server = function(input, output) {
   })
   
   output$wordCloud = renderWordcloud2({
-    wordcloud2(data = createWordCount()[1:450,], 
+    wordcloud2(data = createWordCount()[1:450,] %>%
+                 # Taking sqrt of frequency so that word clouds are more consistent
+                 mutate(freqSqrt = sqrt(freq)) %>% 
+                 select(word, freqSqrt), 
                fontFamily = "Helvetica",
                fontWeight = "bold",
                shape = 'circle', 
@@ -132,11 +136,12 @@ server = function(input, output) {
                color = rep_len(cloudPalette()[2:length(cloudPalette())], 
                                length.out = nrow(createWordCount())), 
                backgroundColor = cloudPalette()[1], 
-               size = 1)
+               size = 0.5)
   })
   
-  # Panel 4
+  ## Panel 4 ##
   buttonPressed = eventReactive(input$button, {
+    # Single line - straightforward
     if (input$numOfLines == 1) {
       randNum = floor(runif(1, min = 1, max = nrow(allLyrics)))
       randLyric = allLyrics$lyric[randNum]
@@ -144,6 +149,7 @@ server = function(input, output) {
       randSection = allLyrics$element[randNum]
       HTML(paste0(randLyric, "<br/><br/>", strong("from "), strong(em(randTrack)), em(strong(", ")), strong(randSection)))
     }
+    # Two lines - both lines should come from the same section of the song
     else if (input$numOfLines == 2) {
       randNum = floor(runif(1, min = 1, max = nrow(allLyrics)))
       randLyric = allLyrics$lyric[randNum]
@@ -161,6 +167,7 @@ server = function(input, output) {
                  allLyrics$lyric[end], 
                  "<br/><br/>", strong("from "), strong(em(randTrack)), em(strong(", ")), strong(randSection), sep = ""))
     }
+    # Entire section - initially tried filtering, but there are sections with the same title (chorus), so had to use while loops
     else if (input$numOfLines == 3) {
       randNum = floor(runif(1, min = 1, max = nrow(allLyrics)))
       randLyric = allLyrics$lyric[randNum]
@@ -181,9 +188,11 @@ server = function(input, output) {
                  "<br/><br/>", strong("from "), strong(em(randTrack)), em(strong(", ")), strong(randSection), sep = ""))
     }
   })
+  
   output$randGenerated = renderUI({
     buttonPressed()
   })
+  
   lexDivAlbum = function() {
     lexicalDiv = allLyrics %>%
       group_by(track_name, album_name) %>%
@@ -191,6 +200,7 @@ server = function(input, output) {
       summarise(LexicalDiversity = n_distinct(word) / length(word)) %>%
       arrange(desc(LexicalDiversity))
   }
+  
   output$lexDiversityAlbum = renderDataTable({
     tabl = lexDivAlbum() %>%
       group_by(album_name) %>%
@@ -204,6 +214,7 @@ server = function(input, output) {
                 caption = "Taylor's albums arranged by average lexical diversity") %>% 
       formatRound(names(tabl)[2], digits = 4) 
   })
+  
   output$lexDiversitySong = renderDataTable({
     tab = allLyrics %>%
       unnest_tokens(word, lyric) %>%
@@ -217,6 +228,7 @@ server = function(input, output) {
       ) %>%
       formatRound(names(tab)[2], digits = 4)
   })
+  
   output$lexDiversity = renderPlot({
     lexicalDiv = lexDivAlbum()
     
