@@ -17,6 +17,7 @@ library(tm)
 library(SnowballC)
 library(yarrr)
 library(shape)
+library(tidytext)
 
 # CSV file created by taylorData.R
 taylor = read_csv("taylorRevised.csv")
