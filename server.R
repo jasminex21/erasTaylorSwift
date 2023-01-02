@@ -66,7 +66,7 @@ server = function(input, output) {
     # Removing stop words from text 
     noStop = c("our", "ours", "yours")
     stops = stopwords("english")[!stopwords("english") %in% noStop]
-    stops = c(stops, "oh", "ooh", "like", "know", "just", "gonna", "wanna", "cause", "yeah")
+    stops = c(stops, "oh", "ooh", "like", "just", "gonna", "wanna", "cause", "yeah")
     words.corpus = tm_map(words.corpus, removeWords, stops)
     # Removing punctuation, but preserving single quotations
     words.corpus = tm_map(words.corpus, removePunctuation, preserve_intra_word_contractions = T)
