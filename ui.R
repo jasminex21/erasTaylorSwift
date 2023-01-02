@@ -93,7 +93,7 @@ ui = navbarPage(title = strong("Eras: Taylor Swift"), inverse = T,
                                      mainPanel(
                                        br(),
                                        wellPanel(wordcloud2Output("wordCloud", 
-                                                                  height = "650px")))
+                                                                  height = "700px")))
                                    ))),
                 # Fifth Panel - Lexical Diversity
                 tabPanel(title = strong("Lexical Diversity"), 
@@ -112,7 +112,7 @@ ui = navbarPage(title = strong("Eras: Taylor Swift"), inverse = T,
                                      mainPanel(
                                        br(),
                                        wellPanel(withLoader(plotOutput("lexDiversity", 
-                                                                       height = "650px"), 
+                                                                       height = "700px"), 
                                                             type = "image", 
                                                             loader = "tayLoading.gif"), 
                                                  hr(), 
