@@ -1,6 +1,6 @@
 # Eras: Taylor Swift - An Analysis of Taylor Swift's Discography
 
-An R Shiny web application dedicated to Taylor Swift. Accounts for 225 tracks in 10 original studio albums (*Taylor Swift* to *Midnights*) and 2 re-recordings (*Fearless TV* and *Red TV*).
+An R Shiny web application dedicated to Taylor Swift. Accounts for 225 tracks in 10 original studio albums (*Taylor Swift* to *Midnights*) and 2 re-recordings (*Fearless TV* and *Red TV*). The app can be accessed via `runGitHub("erasTaylorSwift", "jasminex21")` or through [this link](https://jasminex21.shinyapps.io/erasTaylorSwift/_w_020d3d41/#tab-2723-3).
 
 ### Panel 2 - Track Audio Features
 Insight into audio features (defined and quantified by the Spotify API) of Taylor Swift's albums. Allows users to view valence, energy, and danceability of each album in a joyplot and in tabular format. Each feature is briefly explained in the user interface.
