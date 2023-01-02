@@ -80,7 +80,7 @@ server = function(input, output) {
   })
   
   output$countTable = renderDataTable({
-    df = createWordCount()[1:450,]
+    df = createWordCount()
     rownames(df) = NULL
     DT::datatable(df, 
                   colnames = c("Word", "Frequency"),
@@ -125,7 +125,7 @@ server = function(input, output) {
   })
   
   output$wordCloud = renderWordcloud2({
-      wordcloud2(data = createWordCount()[1:450,],
+      wordcloud2(data = createWordCount(),
                  fontFamily = "Helvetica",
                  fontWeight = "bold",
                  shape = 'circle', 
@@ -134,7 +134,8 @@ server = function(input, output) {
                                  length.out = nrow(createWordCount())), 
                  backgroundColor = cloudPalette()[1], 
                  size = 0.8, 
-                 gridSize = 0.3)
+                 gridSize = 0.3, 
+                 minSize = 2)
     })
   
   ## Panel 4 ##
