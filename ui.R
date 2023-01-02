@@ -137,7 +137,7 @@ ui = navbarPage(title = strong("Eras: Taylor Swift"), inverse = T,
                                                           h5(strong("Fun Fact")), 
                                                           p('Taylor repeats "out of the woods" and "in the clear" 38 and 36 times, respectively, throughout the song.'),
                                                           p(em("Out of the Woods"), 
-                                                            " involves 106 unique words out of the 606 total words in the song."))
+                                                            " involves 103 unique words out of the 660 total words in the song."))
                                                  ),
                                                  style = "font-size: 16px;")))))),
                 # Fourth Panel - Random Lyric(s) Generator
