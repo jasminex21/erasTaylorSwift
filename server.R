@@ -80,7 +80,7 @@ server = function(input, output) {
   })
   
   output$countTable = renderDataTable({
-    df = createWordCount()[1:450,]
+    df = createWordCount()
     rownames(df) = NULL
     DT::datatable(df, 
                   colnames = c("Word", "Frequency"),
@@ -133,7 +133,7 @@ server = function(input, output) {
                  color = rep_len(cloudPalette()[2:length(cloudPalette())], 
                                  length.out = nrow(createWordCount())), 
                  backgroundColor = cloudPalette()[1], 
-                 size = 0.65,
+                 size = 0.8,
                  minSize = 2)
     })
   
