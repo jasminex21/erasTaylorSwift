@@ -1,8 +1,9 @@
 /* Eras: Taylor Swift CSS */
 
 * {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", 
-  Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: walsheim,Helvetica,Arial,Lucida Grande,sans-serif;
+  /* "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", 
+  Helvetica, Arial, "Lucida Grande", sans-serif; */
 }
 
 #featureDescription, #featureCommentary { 
