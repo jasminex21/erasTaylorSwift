@@ -1,11 +1,13 @@
 # Eras: Taylor Swift - An Analysis of Taylor Swift's Discography
 
-An R Shiny web application dedicated to Taylor Swift. Accounts for 225 tracks in 10 original studio albums (*Taylor Swift* to *Midnights*) and 2 re-recordings (*Fearless TV* and *Red TV*). The app can be accessed via `runGitHub("erasTaylorSwift", "jasminex21")` or through [this link](https://jasminex21.shinyapps.io/erasTaylorSwift/_w_020d3d41/#tab-2723-3).
+An R Shiny web application dedicated to Taylor Swift. Accounts for 225 tracks in 10 original studio albums (*Taylor Swift* to *Midnights*) and 2 re-recordings (*Fearless TV* and *Red TV*). Consists of 5 panels, each focusing on a different aspect of Swift's discography - see below for a run-down of the panels.
+
+The app can be accessed via `runGitHub("erasTaylorSwift", "jasminex21")` or through [this link](https://jasminex21.shinyapps.io/erasTaylorSwift/_w_020d3d41/#tab-2723-3).
 
 ### Panel 2 - Track Audio Features
 Insight into audio features (defined and quantified by the Spotify API) of Taylor Swift's albums. Allows users to view valence, energy, and danceability of each album in a joyplot and in tabular format. Each feature is briefly explained in the user interface.
 
-Joyplot displaying the distribution of valence in each album
+Joyplot displaying the distribution of valence in each album:
 
 <img src="https://user-images.githubusercontent.com/109494334/210194330-d64a8891-ed67-4d62-8faf-12fc190fc0d1.png" width=80% height=80%>
 
