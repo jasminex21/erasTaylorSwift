@@ -124,7 +124,7 @@ server = function(input, output) {
   })
   
   output$wordCloud = renderWordcloud2({
-    wordcloud3(data = createWordCount()[1:450,],
+    wordcloud2(data = createWordCount()[1:450,],
                fontFamily = "Helvetica",
                fontWeight = "bold",
                shape = 'circle', 
