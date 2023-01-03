@@ -18,6 +18,7 @@ library(SnowballC)
 library(yarrr)
 library(shape)
 library(tidytext)
+library(htmlwidgets)
 
 # CSV file created by taylorData.R
 taylor = read_csv("taylorRevised.csv")
@@ -39,7 +40,7 @@ album_colors = c("#00A3AD", # Debut
                  "#526D85") # Midnights
 
 # Palettes from tayloRswift::swift_palettes:
-# Made slight changes to make wordclouds more visually appealing
+  # Made slight changes to make wordclouds more visually appealing
 palettes = swift_palettes
 palettes$midnights = c("#586891", "#8897A4", "#B3A6A3", "#2B152C", "#F1F3F2")
 palettes$taylor1989[1] = "#9BB8D8"
