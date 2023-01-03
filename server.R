@@ -132,7 +132,7 @@ server = function(input, output) {
                color = rep_len(cloudPalette()[2:length(cloudPalette())], 
                                length.out = nrow(createWordCount())), 
                backgroundColor = cloudPalette()[1], 
-               size = 0.85)
+               size = 0.75)
   })
   
   # Panel 4
