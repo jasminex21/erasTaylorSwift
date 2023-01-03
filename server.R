@@ -7,7 +7,7 @@ server = function(input, output) {
     filter(annotations, feature %in% input$audioFeature)
   })
   
-  ## Panel 2 ##
+  # Panel 2
   output$featureDescription = renderText({
     toString(annotationSubsets()[1,2])
   })
@@ -41,18 +41,18 @@ server = function(input, output) {
       summarise(!!paste("Mean", str_to_title(input$audioFeature)) := mean(eval(parse(text = input$audioFeature)))) 
     
     table %>% arrange(desc(table[2])) %>%
-      rename(Album = 1) %>%
-      datatable(options = list(paging = F, 
-                               searching = F, 
-                               lengthChange = F)) %>%
-      formatRound(names(table)[2], digits = 4) 
+    rename(Album = 1) %>%
+    datatable(options = list(paging = F, 
+                             searching = F, 
+                             lengthChange = F)) %>%
+    formatRound(names(table)[2], digits = 4) 
   })
   
   output$featureCommentary = renderText({
     toString(annotationSubsets()[1,3])
   })
   
-  ## Panel 3 ##
+  # Panel 3
   createWordCount = reactive({
     req(input$cloudAlbum)
     albumLyrics = allLyrics %>%
@@ -66,7 +66,7 @@ server = function(input, output) {
     # Removing stop words from text 
     noStop = c("our", "ours", "yours")
     stops = stopwords("english")[!stopwords("english") %in% noStop]
-    stops = c(stops, "oh", "ooh", "like", "just", "gonna", "wanna", "cause", "yeah")
+    stops = c(stops, "oh", "ooh", "like", "know", "just", "gonna", "wanna", "cause", "yeah")
     words.corpus = tm_map(words.corpus, removeWords, stops)
     # Removing punctuation, but preserving single quotations
     words.corpus = tm_map(words.corpus, removePunctuation, preserve_intra_word_contractions = T)
@@ -80,14 +80,13 @@ server = function(input, output) {
   })
   
   output$countTable = renderDataTable({
-    df = createWordCount()
+    df = createWordCount()[1:450,]
     rownames(df) = NULL
     DT::datatable(df, 
                   colnames = c("Word", "Frequency"),
                   caption = 'Note that stopwords such as i, me, my, am, etc. have been excluded. Hover over the wordcloud for specific word counts, or view the table below.')
   })
   
-  # I could have put the palettes in order into a dataframe, which would have made this less repetitive
   cloudPalette = reactive({
     if (input$cloudAlbum == "Taylor Swift") {
       palette = palettes$taylorSwift
@@ -125,22 +124,19 @@ server = function(input, output) {
   })
   
   output$wordCloud = renderWordcloud2({
-      wordcloud2(data = createWordCount(),
-                 fontFamily = "Helvetica",
-                 fontWeight = "bold",
-                 shape = 'circle', 
-                 ellipticity = 0.70, 
-                 color = rep_len(cloudPalette()[2:length(cloudPalette())], 
-                                 length.out = nrow(createWordCount())), 
-                 backgroundColor = cloudPalette()[1], 
-                 size = 0.8, 
-                 gridSize = 0.3, 
-                 minSize = 2)
-    })
+    wordcloud3(data = createWordCount()[1:450,],
+               fontFamily = "Helvetica",
+               fontWeight = "bold",
+               shape = 'circle', 
+               ellipticity = 0.70, 
+               color = rep_len(cloudPalette()[2:length(cloudPalette())], 
+                               length.out = nrow(createWordCount())), 
+               backgroundColor = cloudPalette()[1], 
+               size = 0.65)
+  })
   
-  ## Panel 4 ##
+  # Panel 4
   buttonPressed = eventReactive(input$button, {
-    # Single line - straightforward
     if (input$numOfLines == 1) {
       randNum = floor(runif(1, min = 1, max = nrow(allLyrics)))
       randLyric = allLyrics$lyric[randNum]
@@ -148,7 +144,6 @@ server = function(input, output) {
       randSection = allLyrics$element[randNum]
       HTML(paste0(randLyric, "<br/><br/>", strong("from "), strong(em(randTrack)), em(strong(", ")), strong(randSection)))
     }
-    # Two lines - both lines should come from the same section of the song
     else if (input$numOfLines == 2) {
       randNum = floor(runif(1, min = 1, max = nrow(allLyrics)))
       randLyric = allLyrics$lyric[randNum]
@@ -163,10 +158,9 @@ server = function(input, output) {
         end = randNum
       }
       HTML(paste(allLyrics$lyric[start], "<br/>",
-                 allLyrics$lyric[end], 
-                 "<br/><br/>", strong("from "), strong(em(randTrack)), em(strong(", ")), strong(randSection), sep = ""))
+            allLyrics$lyric[end], 
+            "<br/><br/>", strong("from "), strong(em(randTrack)), em(strong(", ")), strong(randSection), sep = ""))
     }
-    # Entire section - initially tried filtering, but there are sections with the same title (chorus), so had to use while loops
     else if (input$numOfLines == 3) {
       randNum = floor(runif(1, min = 1, max = nrow(allLyrics)))
       randLyric = allLyrics$lyric[randNum]
@@ -184,22 +178,19 @@ server = function(input, output) {
       }
       entireSection = allLyrics$lyric[start:end]
       HTML(paste(paste(entireSection, collapse = "<br/>"), 
-                 "<br/><br/>", strong("from "), strong(em(randTrack)), em(strong(", ")), strong(randSection), sep = ""))
+            "<br/><br/>", strong("from "), strong(em(randTrack)), em(strong(", ")), strong(randSection), sep = ""))
     }
   })
-  
   output$randGenerated = renderUI({
     buttonPressed()
   })
-  
   lexDivAlbum = function() {
     lexicalDiv = allLyrics %>%
       group_by(track_name, album_name) %>%
-      unnest_tokens(word, lyric) %>%
+      tidytext::unnest_tokens(word, lyric) %>%
       summarise(LexicalDiversity = n_distinct(word) / length(word)) %>%
       arrange(desc(LexicalDiversity))
   }
-  
   output$lexDiversityAlbum = renderDataTable({
     tabl = lexDivAlbum() %>%
       group_by(album_name) %>%
@@ -213,10 +204,9 @@ server = function(input, output) {
                 caption = "Taylor's albums arranged by average lexical diversity") %>% 
       formatRound(names(tabl)[2], digits = 4) 
   })
-  
   output$lexDiversitySong = renderDataTable({
     tab = allLyrics %>%
-      unnest_tokens(word, lyric) %>%
+      tidytext::unnest_tokens(word, lyric) %>%
       group_by(track_name) %>%
       summarise(LexicalDiversity = n_distinct(word) / length(word)) %>%
       arrange(desc(LexicalDiversity)) %>%
@@ -227,11 +217,11 @@ server = function(input, output) {
       ) %>%
       formatRound(names(tab)[2], digits = 4)
   })
-  
   output$lexDiversity = renderPlot({
     lexicalDiv = lexDivAlbum()
     
     lexicalDiv$album_name = gsub("(\\(Taylor's Version\\))", "TV", lexicalDiv$album_name)
+    
     pirateplot(formula = LexicalDiversity ~ album_name, 
                data = lexicalDiv, 
                theme = 0, #Starting the plot from nothing so it can be fully customised
