@@ -29,3 +29,15 @@ Single line                |  Two lines                |  Entire section        
 :-------------------------:|:-------------------------:|:-------------------------:|
 ![image](https://user-images.githubusercontent.com/109494334/210194138-8ccbf69d-1d75-427c-9e32-26c42cdc8306.png) |  ![image](https://user-images.githubusercontent.com/109494334/210194182-c18ca470-68f5-4e55-8008-23e765e59c3f.png) |  ![image](https://user-images.githubusercontent.com/109494334/210194240-b3897073-c0da-46ee-8ed1-b9f9d2c1e7c4.png)
 
+
+### TODO
+- Remove non-Taylor's versions if their Taylor's version is available! For sure Red and Fearless, probably 1989 as well.
+- Add 1989 Taylor's version
+- Once TTPD comes out, update the app as soon as possible to reflect it!
+- Plots can honestly be improved - especially the ones that aren't as dynamic / user-friendly
+- Link the lyrics generator to the tayLyrics - either implement it into the app or link it to the game app
+- Maybe add more pictures (recent ones) to the slideshow in the intro panel
+- Background change? Background selection option (would be cool)?
+- Font change? Font selection option by era?
+- More panels for more in-depth explorations
+
