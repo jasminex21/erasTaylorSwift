@@ -1,8 +1,8 @@
 library(spotifyr)
 
 # Setting up Spotify client ID and client secret
-Sys.setenv(SPOTIFY_CLIENT_ID = 'your ID')
-Sys.setenv(SPOTIFY_CLIENT_SECRET = 'your secret')
+Sys.setenv(SPOTIFY_CLIENT_ID = '')
+Sys.setenv(SPOTIFY_CLIENT_SECRET = '')
 access_token <- get_spotify_access_token()
 
 # Creating a tibble/df containing Taylor's Spotify data
@@ -35,24 +35,23 @@ taylor = taylor %>%
   arrange(album_release_date) %>%
   filter(album_name %in% c("Midnights (3am Edition)",
                            "Taylor Swift", 
-                           "Fearless Platinum Edition",
                            "Fearless (Taylor's Version)",
-                           "Speak Now (Deluxe Edition)",
-                           "Red (Deluxe Edition)",
+                           "Speak Now (Taylor's Version)",
                            "Red (Taylor's Version)", 
-                           "1989 (Deluxe Edition)",
                            "folklore (deluxe version)", 
                            "evermore (deluxe version)",
                            "reputation", 
-                           "Lover")) %>%
+                           "Lover", 
+                           "1989 (Taylor's Version) [Deluxe]")) %>%
   filter(!duplicated(track_name))
 
 # Changing the deluxe edition titles to the original title (aesthetic purposes)
 taylor$album_name[taylor$album_name == "Midnights (3am Edition)"] = "Midnights"
-taylor$album_name[taylor$album_name == "Fearless Platinum Edition"] = "Fearless"
-taylor$album_name[taylor$album_name == "Speak Now (Deluxe Edition)"] = "Speak Now"
-taylor$album_name[taylor$album_name == "Red (Deluxe Edition)"] = "Red"
-taylor$album_name[taylor$album_name == "1989 (Deluxe Edition)"] = "1989"
+# taylor$album_name[taylor$album_name == "Fearless Platinum Edition"] = "Fearless"
+# taylor$album_name[taylor$album_name == "Speak Now (Deluxe Edition)"] = "Speak Now"
+# taylor$album_name[taylor$album_name == "Red (Deluxe Edition)"] = "Red"
+# taylor$album_name[taylor$album_name == "1989 (Deluxe Edition)"] = "1989"
+taylor$album_name[taylor$album_name == "1989 (Taylor's Version) [Deluxe]"] = "1989 (Taylor's Version)"
 taylor$album_name[taylor$album_name == "folklore (deluxe version)"] = "folklore"
 taylor$album_name[taylor$album_name == "evermore (deluxe version)"] = "evermore"
 
@@ -66,4 +65,4 @@ taylor = taylor %>% filter(!str_detect(taylor$track_name, "Acoustic"),
 
 taylor$track_name[taylor$track_name == "Teardrops On My Guitar - Radio Single Remix"] = "Teardrops On My Guitar"
 
-write.csv(taylor, "taylorRevised.csv")
+write.csv(taylor, "taylorRevised_2024.csv")
