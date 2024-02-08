@@ -32,7 +32,8 @@ Single line                |  Two lines                |  Entire section        
 
 ### TODO
 - Remove non-Taylor's versions if their Taylor's version is available! For sure Red and Fearless, probably 1989 as well.
-- Add 1989 Taylor's version
+- Add 1989 and SN Taylor's version
+    - Should be fairly simple to change the word clouds to use the most updated lyrics. Dataset already available as of today. Audio features and lexical diversity may be more manual.
 - Once TTPD comes out, update the app as soon as possible to reflect it!
 - Plots can honestly be improved - especially the ones that aren't as dynamic / user-friendly
 - Link the lyrics generator to the tayLyrics - either implement it into the app or link it to the game app
